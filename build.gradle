@@ -55,4 +55,6 @@ dependencies {
     implementation platform('software.amazon.awssdk:bom:2.7.5')
     implementation 'software.amazon.awssdk:s3'
 
+    testCompile group: 'com.adobe.testing', name: 's3mock-junit5', version: '2.1.12'
+
 }

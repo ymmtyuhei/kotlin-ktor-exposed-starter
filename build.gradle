@@ -27,6 +27,7 @@ compileTestKotlin {
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 test {
@@ -50,4 +51,9 @@ dependencies {
     testCompile "io.rest-assured:rest-assured:3.3.0"
     testCompile "org.junit.jupiter:junit-jupiter-api:5.4.0"
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+
+    implementation platform('software.amazon.awssdk:bom:2.7.5')
+    implementation 'software.amazon.awssdk:kinesis'
+    implementation 'software.amazon.awssdk:s3'
+    
 }

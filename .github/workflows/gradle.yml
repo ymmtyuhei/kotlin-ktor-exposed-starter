@@ -23,3 +23,13 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Build Docker Image
+      run: docker build -t kotlin-ktor-exposed-starter .
+    - name: Export Docker Image
+      run: docker save kotlin-ktor-exposed-starter > kotlin-ktor-exposed-starter.tar
+    - name: Upload math result for job 2
+      uses: actions/upload-artifact@master
+      with:
+        name: kotlin-ktor-exposed-starter
+        path: kotlin-ktor-exposed-starter.tar
+

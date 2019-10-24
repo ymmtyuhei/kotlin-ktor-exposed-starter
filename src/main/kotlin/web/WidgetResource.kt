@@ -12,6 +12,7 @@ import io.ktor.websocket.webSocket
 import model.NewWidget
 import service.WidgetService
 
+
 fun Route.widget(widgetService: WidgetService) {
 
     route("/widget") {
@@ -54,11 +55,14 @@ fun Route.widget(widgetService: WidgetService) {
 
     webSocket("/updates") {
         try {
-            widgetService.addChangeListener(this.hashCode()) {
-                outgoing.send(Frame.Text(mapper.writeValueAsString(it)))
-            }
-            while (true) {
-                incoming.receiveOrNull() ?: break
+            for (frame in incoming) {
+                when (frame) {
+                    is Frame.Text -> {
+                        widgetService.addChangeListener(this.hashCode()) {
+                            outgoing.send(Frame.Text(mapper.writeValueAsString(it)))
+                        }
+                    }
+                }
             }
         } finally {
             widgetService.removeChangeListener(this.hashCode())

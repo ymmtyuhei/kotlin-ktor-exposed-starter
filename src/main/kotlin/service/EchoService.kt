@@ -17,8 +17,8 @@ class EchoService {
         }
     }
 
-    private fun client():HttpClient {
-        return HttpClient(Apache) {
+    val client = {
+        HttpClient(Apache) {
             engine {
                 followRedirects = true
                 socketTimeout = 10_000

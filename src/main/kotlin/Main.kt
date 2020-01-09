@@ -11,7 +11,9 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.websocket.WebSockets
 import service.DatabaseFactory
+import service.EchoService
 import service.WidgetService
+import web.echo
 import web.widget
 
 fun Application.module() {
@@ -28,9 +30,11 @@ fun Application.module() {
     DatabaseFactory.init()
 
     val widgetService = WidgetService()
+    val echoService = EchoService()
 
     install(Routing) {
         widget(widgetService)
+        echo(echoService)
     }
 
 }
